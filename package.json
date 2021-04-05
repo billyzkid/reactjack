@@ -1,0 +1,30 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "node --inspect scripts/start.js dev",
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "format": "prettier --write \"{scripts,src}/**/*.{js,jsx}\"",
+    "lint": "prettier --check \"{scripts,src}/**/*.{js,jsx}\"",
+    "test": "uvu"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-react-refresh": "^2.4.2",
+    "@snowpack/plugin-sass": "^1.4.0",
+    "prettier": "^2.2.1",
+    "snowpack": "^3.2.2",
+    "uvu": "^0.5.1"
+  },
+  "engines": {
+    "node": "14.x",
+    "npm": "7.x"
+  }
+}
