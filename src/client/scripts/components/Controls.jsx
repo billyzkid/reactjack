@@ -40,7 +40,7 @@ const Controls = (props) => {
 const NameControl = (props) => {
   logger.debug('NameControl render', props);
 
-  const { isNameControlVisible, user, players } = useStateContext();
+  const { isNameControlVisible, user } = useStateContext();
   const [name, setName] = useState(user.name);
   const dispatch = useDispatchContext();
   const nameContainerRef = useRef(null);

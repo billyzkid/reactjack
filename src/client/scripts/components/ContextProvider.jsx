@@ -49,8 +49,17 @@ const initialState = {
     minBuyIn: 10,
     maxBuyIn: 10000
   },
-  user: {},
-  dealer: { hand: { cards: [] } },
+  user: {
+    name: localStorage.getItem(constants.USER_NAME_KEY) || constants.DEFAULT_USER_NAME,
+    bankroll: Number(localStorage.getItem(constants.USER_BANKROLL_KEY)) || constants.DEFAULT_USER_BANKROLL,
+    bet: Number(localStorage.getItem(constants.USER_BET_KEY)) || constants.DEFAULT_USER_BET,
+  },
+  dealer: {
+    name: 'Dealer',
+    hand: {
+      cards: []
+    }
+  },
   players: [],
   chatMessages: [],
   message: []
