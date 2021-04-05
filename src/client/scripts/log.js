@@ -1,11 +1,11 @@
 import * as constants from './constants.js';
 
 const levelMap = {
-  'trace': console.trace,
-  'debug': console.debug,
-  'info': console.info,
-  'warn': console.warn,
-  'error': console.error
+  trace: console.trace,
+  debug: console.debug,
+  info: console.info,
+  warn: console.warn,
+  error: console.error
 };
 
 const levels = Object.keys(levelMap);

@@ -150,7 +150,7 @@ const reducer = (draft, action) => {
     }
 
     case 'sendChatMessage': {
-      logger.info('socket emit chat message')
+      logger.info('socket emit chat message');
       socket.emit('chat message', { text: action.message });
       return;
     }
@@ -246,7 +246,7 @@ const reducer = (draft, action) => {
       draft.user.name = action.name;
       localStorage.setItem(constants.USER_NAME_KEY, draft.user.name);
 
-      logger.info('socket emit new user', draft.user)
+      logger.info('socket emit new user', draft.user);
       socket.emit('new user', { user: draft.user });
 
       return;
@@ -256,7 +256,7 @@ const reducer = (draft, action) => {
       draft.user.name = action.name;
       localStorage.setItem(constants.USER_NAME_KEY, draft.user.name);
 
-      logger.info('socket emit name change', draft.user.name)
+      logger.info('socket emit name change', draft.user.name);
       socket.emit('name change', { name: draft.user.name });
 
       return;
@@ -280,7 +280,7 @@ const reducer = (draft, action) => {
     }
 
     case 'quit': {
-      logger.info('socket emit quit')
+      logger.info('socket emit quit');
       socket.emit('quit');
 
       return initialState;
@@ -304,7 +304,6 @@ const ContextProvider = (props) => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   useEffect(() => {
-
     // "welcome" is server's response to "new user"
     // providing initial data for the new user when they join
     socket.on('welcome', (data) => {
@@ -375,7 +374,7 @@ const ContextProvider = (props) => {
     return () => {
       socket.disconnect();
     };
-  }, [socket])
+  }, [socket]);
 
   return (
     <SocketContext.Provider value={socket}>
