@@ -1,0 +1,30 @@
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+  @else {
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: auto;
+  }
+}
+
+@mixin fade-transition($enter-duration, $exit-duration) {
+  &.exit-done,
+  &.exit.exit-active {
+    opacity: 0;
+  }
+
+  &.enter-done,
+  &.enter.enter-active {
+    opacity: 1;
+  }
+
+  &.enter {
+    transition: opacity $enter-duration ease 0ms;
+  }
+
+  &.exit {
+    transition: opacity $exit-duration ease 0ms;
+  }
+}

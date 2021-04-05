@@ -1,0 +1,17 @@
+.table {
+  position: relative; // may contain absolute-positioned players (e.g. on mobile)
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  background: $table-background;
+
+  > h1 {
+    font: $table-title-font;
+    min-height: $table-title-min-height;
+    margin: $table-title-margin;
+    text-align: center;
+  }
+}

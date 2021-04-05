@@ -1,0 +1,332 @@
+.card {
+  position: relative;
+  width: 6.25em;
+  height: 8.75em;
+  perspective: 37.5em;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.375em;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    backface-visibility: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+
+  &::before {
+    background-image: url('../images/cards/back.png');
+  }
+
+  &.ace-of-spades::after {
+    background-image: url('../images/cards/front-0.png');
+  }
+
+  &.two-of-spades::after {
+    background-image: url('../images/cards/front-1.png');
+  }
+
+  &.three-of-spades::after {
+    background-image: url('../images/cards/front-2.png');
+  }
+
+  &.four-of-spades::after {
+    background-image: url('../images/cards/front-3.png');
+  }
+
+  &.five-of-spades::after {
+    background-image: url('../images/cards/front-4.png');
+  }
+
+  &.six-of-spades::after {
+    background-image: url('../images/cards/front-5.png');
+  }
+
+  &.seven-of-spades::after {
+    background-image: url('../images/cards/front-6.png');
+  }
+
+  &.eight-of-spades::after {
+    background-image: url('../images/cards/front-7.png');
+  }
+
+  &.nine-of-spades::after {
+    background-image: url('../images/cards/front-8.png');
+  }
+
+  &.ten-of-spades::after {
+    background-image: url('../images/cards/front-9.png');
+  }
+
+  &.jack-of-spades::after {
+    background-image: url('../images/cards/front-10.png');
+  }
+
+  &.queen-of-spades::after {
+    background-image: url('../images/cards/front-11.png');
+  }
+
+  &.king-of-spades::after {
+    background-image: url('../images/cards/front-12.png');
+  }
+
+  &.ace-of-hearts::after {
+    background-image: url('../images/cards/front-13.png');
+  }
+
+  &.two-of-hearts::after {
+    background-image: url('../images/cards/front-14.png');
+  }
+
+  &.three-of-hearts::after {
+    background-image: url('../images/cards/front-15.png');
+  }
+
+  &.four-of-hearts::after {
+    background-image: url('../images/cards/front-16.png');
+  }
+
+  &.five-of-hearts::after {
+    background-image: url('../images/cards/front-17.png');
+  }
+
+  &.six-of-hearts::after {
+    background-image: url('../images/cards/front-18.png');
+  }
+
+  &.seven-of-hearts::after {
+    background-image: url('../images/cards/front-19.png');
+  }
+
+  &.eight-of-hearts::after {
+    background-image: url('../images/cards/front-20.png');
+  }
+
+  &.nine-of-hearts::after {
+    background-image: url('../images/cards/front-21.png');
+  }
+
+  &.ten-of-hearts::after {
+    background-image: url('../images/cards/front-22.png');
+  }
+
+  &.jack-of-hearts::after {
+    background-image: url('../images/cards/front-23.png');
+  }
+
+  &.queen-of-hearts::after {
+    background-image: url('../images/cards/front-24.png');
+  }
+
+  &.king-of-hearts::after {
+    background-image: url('../images/cards/front-25.png');
+  }
+
+  &.ace-of-clubs::after {
+    background-image: url('../images/cards/front-26.png');
+  }
+
+  &.two-of-clubs::after {
+    background-image: url('../images/cards/front-27.png');
+  }
+
+  &.three-of-clubs::after {
+    background-image: url('../images/cards/front-28.png');
+  }
+
+  &.four-of-clubs::after {
+    background-image: url('../images/cards/front-29.png');
+  }
+
+  &.five-of-clubs::after {
+    background-image: url('../images/cards/front-30.png');
+  }
+
+  &.six-of-clubs::after {
+    background-image: url('../images/cards/front-31.png');
+  }
+
+  &.seven-of-clubs::after {
+    background-image: url('../images/cards/front-32.png');
+  }
+
+  &.eight-of-clubs::after {
+    background-image: url('../images/cards/front-33.png');
+  }
+
+  &.nine-of-clubs::after {
+    background-image: url('../images/cards/front-34.png');
+  }
+
+  &.ten-of-clubs::after {
+    background-image: url('../images/cards/front-35.png');
+  }
+
+  &.jack-of-clubs::after {
+    background-image: url('../images/cards/front-36.png');
+  }
+
+  &.queen-of-clubs::after {
+    background-image: url('../images/cards/front-37.png');
+  }
+
+  &.king-of-clubs::after {
+    background-image: url('../images/cards/front-38.png');
+  }
+
+  &.ace-of-diamonds::after {
+    background-image: url('../images/cards/front-39.png');
+  }
+
+  &.two-of-diamonds::after {
+    background-image: url('../images/cards/front-40.png');
+  }
+
+  &.three-of-diamonds::after {
+    background-image: url('../images/cards/front-41.png');
+  }
+
+  &.four-of-diamonds::after {
+    background-image: url('../images/cards/front-42.png');
+  }
+
+  &.five-of-diamonds::after {
+    background-image: url('../images/cards/front-43.png');
+  }
+
+  &.six-of-diamonds::after {
+    background-image: url('../images/cards/front-44.png');
+  }
+
+  &.seven-of-diamonds::after {
+    background-image: url('../images/cards/front-45.png');
+  }
+
+  &.eight-of-diamonds::after {
+    background-image: url('../images/cards/front-46.png');
+  }
+
+  &.nine-of-diamonds::after {
+    background-image: url('../images/cards/front-47.png');
+  }
+
+  &.ten-of-diamonds::after {
+    background-image: url('../images/cards/front-48.png');
+  }
+
+  &.jack-of-diamonds::after {
+    background-image: url('../images/cards/front-49.png');
+  }
+
+  &.queen-of-diamonds::after {
+    background-image: url('../images/cards/front-50.png');
+  }
+
+  &.king-of-diamonds::after {
+    background-image: url('../images/cards/front-51.png');
+  }
+
+  &.black-joker::after {
+    background-image: url('../images/cards/front-52.png');
+  }
+
+  &.red-joker::after {
+    background-image: url('../images/cards/front-53.png');
+  }
+
+  &.enter {
+    transform: translate3d(100vw,-100vh,0) rotate3d(0,0,1,60deg) scale3d(1.5,1.5,1.5);
+
+    &::before {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      transform: rotate3d(0,1,0,0deg);
+    }
+
+    &::after {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      transform: rotate3d(0,1,0,180deg);
+    }
+
+    &.enter-active {
+      transform: translate3d(0,0,0) rotate3d(0,0,0,0deg) scale3d(1,1,1);
+      transition: transform $card-enter-transition-duration $card-enter-transition-function $card-enter-transition-delay;
+
+      &::before {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        transform: rotate3d(0,1,0,-180deg);
+        transition: box-shadow $card-enter-transition-duration $card-enter-transition-function $card-enter-transition-delay, transform $card-enter-flip-transition-duration $card-enter-flip-transition-function $card-enter-flip-transition-delay;
+      }
+
+      &::after {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        transform: rotate3d(0,1,0,0deg);
+        transition: box-shadow $card-enter-transition-duration $card-enter-transition-function $card-enter-transition-delay, transform $card-enter-flip-transition-duration $card-enter-flip-transition-function $card-enter-flip-transition-delay;
+      }
+
+    }
+
+  }
+
+  &.exit {
+    transform: translate3d(0,0,0);
+
+    &.exit-active {
+      transform: translate3d(0,-110vh,0);
+      transition: transform $card-exit-transition-duration $card-exit-transition-function $card-exit-transition-delay;
+    }
+
+  }
+
+  &::before {
+    transform: rotate3d(0,1,0,180deg);
+  }
+
+  &::after {
+    transform: rotate3d(0,1,0,0deg);
+  }
+
+  &.flip {
+
+    &::before {
+      transform: rotate3d(0,1,0,0deg);
+      transition: transform $card-flip-transition-duration $card-flip-transition-function $card-flip-transition-delay;
+    }
+
+    &::after {
+      transform: rotate3d(0,1,0,-180deg);
+      transition: transform $card-flip-transition-duration $card-flip-transition-function $card-flip-transition-delay;
+    }
+
+  }
+
+  &.hidden {
+
+    &::before {
+      transform: rotate3d(0,1,0,0deg) !important;
+    }
+
+    &::after {
+      transform: rotate3d(0,1,0,180deg) !important;
+    }
+
+    &.flip {
+
+      &::before {
+        transform: rotate3d(0,1,0,-180deg) !important;
+        transition: transform $card-flip-transition-duration $card-flip-transition-function $card-flip-transition-delay;
+      }
+
+      &::after {
+        transform: rotate3d(0,1,0,0deg) !important;
+        transition: transform $card-flip-transition-duration $card-flip-transition-function $card-flip-transition-delay;
+      }
+
+    }
+
+  }
+
+}

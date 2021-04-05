@@ -1,0 +1,8 @@
+.dealer {
+  width: 100%;
+  min-height: $dealer-min-height;
+  margin: $dealer-margin;
+  transform: $dealer-transform;
+  opacity: 0;
+  @include fade-transition(200ms, 200ms);
+}

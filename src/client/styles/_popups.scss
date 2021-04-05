@@ -1,0 +1,488 @@
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: 300; // above controls
+
+  // positions
+  &-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  &-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  &-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  // fade transitions
+  &-fade-enter {
+    opacity: 0;
+    transition: opacity $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-fade-enter-active {
+    opacity: 1;
+  }
+
+  &-fade-exit {
+    opacity: 1;
+    transition: opacity $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-fade-exit-active {
+    opacity: 0;
+  }
+
+  // zoom transitions
+  &-zoom-enter {
+    opacity: 0;
+    transform: scale3d(0.8,0.8,0.8);
+    transition: opacity $popup-enter-transition-duration $popup-enter-transition-function, transform $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-zoom-enter-active {
+    opacity: 1;
+    transform: scale3d(1,1,1);
+  }
+
+  &-zoom-exit {
+    opacity: 1;
+    transform: scale3d(1,1,1);
+    transition: opacity $popup-exit-transition-duration $popup-exit-transition-function, transform $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-zoom-exit-active {
+    opacity: 0;
+    transform: scale3d(0.8,0.8,0.8);
+  }
+
+  // slide up transitions
+  &-slide-up-enter {
+    transform: translate(0,100%);
+    transition: transform $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-slide-up-enter-active {
+    transform: translate(0,0);
+  }
+
+  &-slide-up-exit {
+    transform: translate(0,0);
+    transition: transform $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-slide-up-exit-active {
+    transform: translate(0,100%);
+  }
+
+  // slide down transitions
+  &-slide-down-enter {
+    transform: translate(0,-100%);
+    transition: transform $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-slide-down-enter-active {
+    transform: translate(0,0);
+  }
+
+  &-slide-down-exit {
+    transform: translate(0,0);
+    transition: transform $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-slide-down-exit-active {
+    transform: translate(0,-100%);
+  }
+
+  // slide left transitions
+  &-slide-left-enter {
+    transform: translate(100%,0);
+    transition: transform $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-slide-left-enter-active {
+    transform: translate(0,0);
+  }
+
+  &-slide-left-exit {
+    transform: translate(0,0);
+    transition: transform $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-slide-left-exit-active {
+    transform: translate(100%,0);
+  }
+
+  // slide right transitions
+  &-slide-right-enter {
+    transform: translate(-100%,0);
+    transition: transform $popup-enter-transition-duration $popup-enter-transition-function;
+  }
+
+  &-slide-right-enter-active {
+    transform: translate(0,0);
+  }
+
+  &-slide-right-exit {
+    transform: translate(0,0);
+    transition: transform $popup-exit-transition-duration $popup-exit-transition-function;
+  }
+
+  &-slide-right-exit-active {
+    transform: translate(-100%,0);
+  }
+
+  > .popup-mask {
+    position: absolute;
+    inset: 0;
+    background: $popup-mask-background;
+    backdrop-filter: $popup-mask-backdrop-filter;
+  }
+
+  > .popup-content {
+    position: relative;
+    outline: none;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.popup-open {
+  overflow: hidden; // prevents page from scrolling while popup is open
+}
+
+.info-popup-open .info-popup-button,
+.profile-popup-open .profile-popup-button,
+.chat-popup-open .chat-popup-button,
+.music-popup-open .music-popup-button,
+.settings-popup-open .settings-popup-button,
+.quit-popup-open .quit-popup-button {
+  color: $main-menu-button-color-alt;
+}
+
+.info-popup > .popup-content {
+  font-size: $info-popup-font-size;
+  font-weight: $info-popup-font-weight;
+  text-shadow: none;
+  width: $info-popup-width;
+  height: $info-popup-height;
+  padding: $info-popup-padding;
+  border: $info-popup-border;
+  border-radius: $info-popup-border-radius;
+  background: $info-popup-background;
+  box-shadow: $info-popup-box-shadow;
+  box-sizing: border-box;
+  overflow: auto;
+
+  > h1 {
+    margin: 0;
+  }
+
+  > h1 + p {
+    font-size: $info-popup-source-font-size;
+    margin: 0;
+  }
+
+  // prevents headers from "butting head" against top when anchor links are clicked
+  > h1::before,
+  > h2::before,
+  > h3::before,
+  > h4::before {
+    content: '';
+    display: block;
+    height: $info-popup-font-size;
+    margin-top: $info-popup-font-size * -1;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.profile-popup > .popup-content {
+  font-size: $profile-popup-font-size;
+  font-weight: $profile-popup-font-weight;
+
+  > p {
+    text-align: center;
+    margin: $profile-popup-text-margin;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    > input,
+    > button {
+      font-size: $profile-popup-input-font-size;
+      margin: $profile-popup-input-margin;
+    }
+
+    > input {
+      width: $profile-popup-input-width;
+    }
+  }
+}
+
+.chat-popup > .popup-content {
+  font-size: $chat-popup-font-size;
+  font-weight: $chat-popup-font-weight;
+  width: $chat-popup-width;
+  height: $chat-popup-height;
+  padding: $chat-popup-padding;
+  border: $chat-popup-border;
+  border-radius: $chat-popup-border-radius;
+  background: $chat-popup-background;
+  box-shadow: $chat-popup-box-shadow;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    > div:nth-child(1) {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column-reverse;
+      overflow: auto;
+
+      > div {
+        padding: $chat-popup-window-padding;
+        background: $chat-popup-window-background;
+
+        > .messages {
+          display: flex;
+          flex-direction: column;
+
+          > h6 {
+            color: $chat-popup-name-color;
+            font-size: $chat-popup-name-font-size;
+            margin: 1em 0.78125em 0;
+          }
+
+          > p {
+            padding: 0.5em 1em;
+            border-radius: 1.25em;
+            margin: 0.3125em 0;
+            white-space: pre-wrap; // allows newline and tab characters
+          }
+
+          &.incoming {
+            align-items: flex-start;
+
+            > p {
+              position: relative;
+              background: $chat-popup-incoming-message-background;
+
+              &:last-child::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: -0.5em;
+                width: 1.25em;
+                height: 1.25em;
+                border-bottom-right-radius: 1em;
+                background: $chat-popup-incoming-message-background;
+              }
+
+              &:last-child::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: -0.625em;
+                width: 0.625em;
+                height: 1.25em;
+                border-bottom-right-radius: 0.625em;
+                background: $chat-popup-window-background;
+              }
+            }
+          }
+
+          &.outgoing {
+            align-items: flex-end;
+
+            > p {
+              position: relative;
+              background: $chat-popup-outgoing-message-background;
+
+              &:last-child::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: -0.5em;
+                width: 1.25em;
+                height: 1.25em;
+                border-bottom-left-radius: 1em;
+                background: $chat-popup-outgoing-message-background;
+              }
+
+              &:last-child::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: -0.625em;
+                width: 0.625em;
+                height: 1.25em;
+                border-bottom-left-radius: 0.625em;
+                background: $chat-popup-window-background;
+              }
+            }
+          }
+
+          &.system {
+
+            > p {
+              background: $chat-popup-system-message-background;
+
+              &:last-child::before {
+                background: $chat-popup-system-message-background;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > div:nth-child(2) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      > input,
+      > button {
+        font-size: $chat-popup-input-font-size;
+        margin: $chat-popup-input-margin;
+      }
+
+      > input {
+        width: $chat-popup-input-width;
+      }
+    }
+  }
+}
+
+.music-popup > .popup-content {
+  width: $music-popup-width;
+  height: $music-popup-height;
+  padding: $music-popup-padding;
+  border: $music-popup-border;
+  border-radius: $music-popup-border-radius;
+  background: $music-popup-background;
+  box-shadow: $music-popup-box-shadow;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  > iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 150px; // prevent iframe content from breaking at narrow widths
+    border: 0;
+  }
+}
+
+.settings-popup > .popup-content {
+  font-size: $settings-popup-font-size;
+  font-weight: $settings-popup-font-weight;
+  text-shadow: none;
+  padding: $settings-popup-padding;
+  border: $settings-popup-border;
+  border-radius: $settings-popup-border-radius;
+  background: $settings-popup-background;
+  box-shadow: $settings-popup-box-shadow;
+  box-sizing: border-box;
+  overflow: auto;
+
+  > label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: $settings-popup-setting-min-height;
+    border-bottom: $settings-popup-setting-border-bottom;
+
+    > span:nth-child(1) {
+      margin-right: $settings-popup-setting-label-margin-right;
+    }
+  }
+
+  > label:nth-child(17),
+  > label:nth-child(18) {
+
+    > span:nth-child(2) {
+
+      &::before {
+        content: '$';
+        margin: $settings-popup-dollar-sign-margin;
+      }
+
+      > input[type=number] {
+        width: $settings-popup-bet-input-width;
+      }
+    }
+  }
+
+  > label:nth-child(19),
+  > label:nth-child(20) {
+
+    > span:nth-child(2) {
+
+      &::before {
+        content: '$';
+        margin: $settings-popup-dollar-sign-margin;
+      }
+
+      > input[type=number] {
+        width: $settings-popup-buy-in-input-width;
+      }
+    }
+  }
+}
+
+.quit-popup > .popup-content {
+  font-size: $quit-popup-font-size;
+  font-weight: $quit-popup-font-weight;
+
+  > p {
+    text-align: center;
+    margin: $quit-popup-text-margin;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    > button {
+      font-size: $quit-popup-button-font-size;
+      margin: $quit-popup-button-margin;
+    }
+  }
+}

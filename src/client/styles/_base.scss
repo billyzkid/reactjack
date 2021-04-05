@@ -1,0 +1,124 @@
+html {
+  font: $base-font;
+  color: $base-color;
+  text-shadow: $base-text-shadow;
+  background: $base-background;
+}
+
+// headers
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+// buttons
+button,
+::-webkit-outer-spin-button,
+::-webkit-inner-spin-button {
+  cursor: pointer;
+}
+
+// input
+input[type=text],
+input[type=number] {
+  font: $input-font;
+  color: $input-color;
+  text-shadow: $input-text-shadow;
+  padding: $input-padding;
+  border: $input-border;
+  border-radius: $input-border-radius;
+  background: $input-background;
+  appearance: none; // remove the inner shadow on iOS
+  outline: none; // let the cursor indicate focus
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    text-shadow: $input-placeholder-text-shadow;
+  }
+
+  &::-webkit-inner-spin-button {
+    margin-right: $input-number-button-margin;
+  }
+}
+
+// select
+select {
+  font: $select-font;
+  color: $select-color;
+  text-shadow: $select-text-shadow;
+  padding: $select-padding;
+  border: $select-border;
+  border-radius: $select-border-radius;
+  background: $select-background;
+  box-sizing: content-box;
+
+  > option {
+    background: $select-option-background;
+  }
+}
+
+// links
+a {
+  outline: none;
+  text-decoration: none;
+
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &:link {
+    color: $link-color;
+  }
+
+  &:visited {
+    color: $link-color-visited;
+  }
+
+  &:hover {
+    color: $link-color-hover;
+  }
+
+  &:active {
+    color: $link-color-active;
+  }
+}
+
+// scrollbars
+::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-height;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background: $scrollbar-background;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  border: $scrollbar-thumb-border;
+  border-radius: $scrollbar-thumb-border-radius;
+  background: $scrollbar-thumb-background;
+  background-clip: content-box;
+}
+
+// hidden popups, etc.
+[hidden] {
+  display: none !important;
+}
+
+// @media (orientation: landscape) {
+//   html {
+//     font-size: 2.5vh;
+//   }
+// }
+
+// @media (orientation: portrait) {
+//   html {
+//     font-size: 2.5vw;
+//   }
+// }

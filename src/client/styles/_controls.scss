@@ -1,0 +1,105 @@
+.controls {
+  position: relative;
+  z-index: 200; // above primary player
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font: $controls-font;
+  width: 100%;
+  min-height: $controls-min-height;
+  margin: $controls-margin;
+  opacity: 1;
+  @include fade-transition(200ms, 200ms);
+
+  > div {
+    position: absolute;
+  }
+
+  .name-container {
+    position: fixed;
+    top: 50%;
+    height: $controls-name-container-height;
+    margin-top: $controls-name-container-height / -2; // centered vertically
+  }
+
+  > .name-container,
+  > .buy-in-container,
+  > .insurance-container,
+  > .even-money-container {
+
+    > p {
+      text-align: center;
+      margin: $controls-text-margin;
+    }
+  }
+
+  > .sit-container,
+  > .in-out-container,
+  > .bet-container,
+  > .decision-container,
+  > .name-container > div,
+  > .buy-in-container > div,
+  > .insurance-container > div,
+  > .even-money-container > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    > input,
+    > button {
+      font-size: $controls-input-font-size;
+      margin: $controls-input-margin;
+    }
+  }
+
+  > .bet-container,
+  > .buy-in-container > div {
+
+    &::before {
+      content: '$';
+      font-size: $controls-dollar-sign-font-size;
+      margin: $controls-dollar-sign-margin;
+    }
+  }
+
+  > .name-container > div > input {
+    width: $controls-name-input-width;
+  }
+
+  > .buy-in-container > div > input {
+    width: $controls-buy-in-input-width;
+  }
+
+  > .bet-container > input {
+    width: $controls-bet-input-width;
+  }
+
+  > div {
+
+    &.enter {
+      opacity: $controls-enter-opacity;
+      transform: $controls-enter-transform;
+      z-index: 201; // entering control is above exiting control
+
+      &.enter-active {
+        opacity: $controls-enter-active-opacity;
+        transform: $controls-enter-active-transform;
+        transition: $controls-enter-transition;
+      }
+    }
+
+    &.exit {
+      opacity: $controls-exit-opacity;
+      transform: $controls-exit-transform;
+
+      &.exit-active {
+        opacity: $controls-exit-active-opacity;
+        transform: $controls-exit-active-transform;
+        transition: $controls-exit-transition;
+      }
+    }
+  }
+}

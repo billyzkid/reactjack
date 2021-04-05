@@ -1,0 +1,64 @@
+.table button,
+.popup button {
+  font: 700 1em/1.2 'Caudex', serif;
+  color: inherit;
+  text-shadow: inherit;
+  text-transform: uppercase;
+  padding: 0.2em 0.8em;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.3em;
+  background-size: 100% 100%;
+  background-position: center;
+  outline: none;
+  transition: all 200ms ease-in-out;
+
+  &:focus,
+  &:hover:enabled,
+  &:active:enabled {
+    background-size: 150% 150%;
+  }
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: default;
+  }
+
+  &.gold {
+    color: rgba(120,50,5,1);
+    text-shadow: 0 1px 1px rgba(250,227,133,1);
+    border-color: #a55d07;
+    background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(110,80,20,0.4), inset 0 -2px 5px 1px rgba(139,66,8,1), inset 0 -1px 1px 3px rgba(250,227,133,1);
+
+    &:focus,
+    &:hover:enabled {
+      color: rgba(120,50,5,0.8);
+      border-color: rgba(165,93,7,0.6);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23), inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250,227,133,1);
+    }
+
+    &:active:enabled {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(110,80,20,0.4), inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250,227,133,1);
+    }
+  }
+
+  &.silver {
+    color: rgba(62,62,62,1);
+    text-shadow: 0 1px 1px rgba(191,191,191,1);
+    border-color: #565656;
+    background-image: linear-gradient(160deg, #565656, #626262, #d0d0d0, #6b6b6b, #565656);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(65,65,65,0.4), inset 0 -2px 5px 1px rgba(73,73,73,1), inset 0 -1px 1px 3px rgba(191,191,191,1);
+
+    &:focus,
+    &:hover:enabled {
+      color: rgba(62,62,62,0.8);
+      border-color: rgba(86,86,86,0.6);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23), inset 0 -2px 5px 1px #606060, inset 0 -1px 1px 3px rgba(191,191,191,1);
+    }
+
+    &:active:enabled {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(65,65,65,0.4), inset 0 -2px 5px 1px #606060, inset 0 -1px 1px 3px rgba(191,191,191,1);
+    }
+  }
+}

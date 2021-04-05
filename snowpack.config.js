@@ -1,7 +1,6 @@
 export default {
   mount: {
-    'src/client': { url: '/' },
-    'src/shared': { url: '/scripts/shared' }
+    'src/client': { url: '/' }
   },
   plugins: [
     '@snowpack/plugin-react-refresh',

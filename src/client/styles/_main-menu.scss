@@ -1,0 +1,51 @@
+.main-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  > .popup-button {
+    font: $main-menu-button-font;
+    width: $main-menu-button-width;
+    height: $main-menu-button-height;
+    padding: 0;
+    border: 0;
+    color: $main-menu-button-color;
+    text-shadow: $main-menu-button-text-shadow;
+    background: none;
+    outline: none;
+    transition: $main-menu-button-transition;
+    @include font-smoothing(on);
+
+    &:focus,
+    &:hover:enabled,
+    &:active:enabled {
+        color: $main-menu-button-color-alt;
+    }
+  }
+
+  > .info-popup-button::before {
+    content: '\f05a'; // la-info-circle
+  }
+
+  > .profile-popup-button::before {
+    content: '\f2bd'; // la-user-circle
+  }
+
+  > .chat-popup-button::before {
+    content: '\f086'; // la-comments
+  }
+
+  > .music-popup-button::before {
+    content: '\f001'; // la-music
+  }
+
+  > .settings-popup-button::before {
+    content: '\f013'; // la-cog
+  }
+
+  > .quit-popup-button::before {
+    content: '\f2f5'; // la-sign-out-alt
+  }
+}

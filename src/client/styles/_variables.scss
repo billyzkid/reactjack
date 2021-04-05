@@ -1,1 +1,245 @@
-$loud-color: red;
+$base-font: 400 1em/1.2 'Montserrat', sans-serif;
+$base-color: white;
+$base-text-shadow: 1px 1px 1px black;
+$base-background: black;
+
+$input-font: inherit;
+$input-color: inherit;
+$input-text-shadow: inherit;
+$input-padding: 0.2em 0.4em;
+$input-border: 1px solid rgba(255,255,255,0.2);
+$input-border-radius: 0.3em;
+$input-background: rgba(0,0,0,0.1);
+$input-placeholder-color: rgba(255,255,255,0.2);
+$input-placeholder-text-shadow: none;
+$input-number-button-margin: -0.2em;
+
+$select-font: $input-font;
+$select-color: $input-color;
+$select-text-shadow: $input-text-shadow;
+$select-padding: 0.121875em; // yields same height as input boxes
+$select-border: $input-border;
+$select-border-radius: $input-border-radius;
+$select-background: $input-background;
+$select-option-background: black;
+
+$link-color: green;
+$link-color-visited: green;
+$link-color-hover: lightgreen;
+$link-color-active: lightgreen;
+
+$scrollbar-width: 20px;
+$scrollbar-height: 20px;
+$scrollbar-background: transparent;
+$scrollbar-thumb-border: 8px solid transparent;
+$scrollbar-thumb-border-radius: 100px;
+$scrollbar-thumb-background: rgba(170,170,170,0.8);
+
+$table-background: url('../images/table.jpg') bottom/cover no-repeat;
+
+$table-title-font: 400 5em/1.5 'Monsieur La Doulaise', cursive;
+$table-title-min-height: auto;
+$table-title-margin: 0.25em 0;
+
+$main-menu-button-font: 900 2em/1 'Line Awesome Free';
+$main-menu-button-width: 1.5em;
+$main-menu-button-height: 1.5em;
+$main-menu-button-color: inherit;
+$main-menu-button-color-alt: goldenrod;
+$main-menu-button-text-shadow: inherit;
+$main-menu-button-transition: color 200ms ease 0ms;
+
+$debug-menu-padding: 0.125em;
+$debug-menu-background: white;
+$debug-menu-button-font-size: 0.8em;
+$debug-menu-button-margin: 0.15625em;
+
+$popup-enter-transition-duration: 300ms;
+$popup-enter-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+
+$popup-exit-transition-duration: 300ms;
+$popup-exit-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+
+$popup-mask-background: rgba(0,0,0,0.5);
+$popup-mask-backdrop-filter: blur(5px);
+
+// info popup
+$info-popup-font-size: 1em;
+$info-popup-font-weight: 300;
+$info-popup-width: 66.666666%;
+$info-popup-height: 66.666666%;
+$info-popup-padding: 2em;
+$info-popup-border: 0;
+$info-popup-border-radius: 0.5em;
+$info-popup-background: black;
+$info-popup-box-shadow: 0 0 2em black;
+$info-popup-source-font-size: 0.8em;
+
+// profile popup
+$profile-popup-font-size: 1em;
+$profile-popup-font-weight: 400;
+$profile-popup-text-margin: 0 0 0.75em;
+$profile-popup-input-font-size: 1.25em;
+$profile-popup-input-margin: 0.25em;
+$profile-popup-input-width: 12em;
+
+// chat popup
+$chat-popup-font-size: 1em;
+$chat-popup-font-weight: 400;
+$chat-popup-width: 50%;
+$chat-popup-height: 50%;
+$chat-popup-padding: 0;
+$chat-popup-border: 0;
+$chat-popup-border-radius: 0.5em;
+$chat-popup-background: black;
+$chat-popup-box-shadow: 0 0 2em black;
+$chat-popup-window-padding: 0.625em;
+$chat-popup-window-background: black;
+$chat-popup-name-color: dimgray;
+$chat-popup-name-font-size: 0.8em;
+$chat-popup-incoming-message-background: dimgray;
+$chat-popup-outgoing-message-background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%) fixed;
+$chat-popup-system-message-background: salmon;
+$chat-popup-input-font-size: 1.25em;
+$chat-popup-input-margin: 0.25em;
+$chat-popup-input-width: 100%;
+
+// music popup
+$music-popup-width: 50%;
+$music-popup-height: 50%;
+$music-popup-padding: 0;
+$music-popup-border: 0;
+$music-popup-border-radius: 0.5em;
+$music-popup-background: black;
+$music-popup-box-shadow: 0 0 2em black;
+
+// settings popup
+$settings-popup-font-size: 1em;
+$settings-popup-font-weight: 400;
+$settings-popup-width: auto;
+$settings-popup-height: auto;
+$settings-popup-padding: 2em;
+$settings-popup-border: 0;
+$settings-popup-border-radius: 0.5em;
+$settings-popup-background: black;
+$settings-popup-box-shadow: 0 0 2em black;
+$settings-popup-setting-min-height: 2.0869125em; // yields a 3px margin around select boxes
+$settings-popup-setting-border-bottom: 1px solid rgba(255,255,255,0.2);
+$settings-popup-setting-label-margin-right: 5em;
+$settings-popup-dollar-sign-margin: 0 0.25em 0 0;
+$settings-popup-bet-input-width: 5em;
+$settings-popup-buy-in-input-width: 5em;
+
+// quit popup
+$quit-popup-font-size: 1em;
+$quit-popup-font-weight: 400;
+$quit-popup-text-margin: 0 0 0.75em;
+$quit-popup-button-font-size: 1.25em;
+$quit-popup-button-margin: 0.25em;
+
+// cards
+$card-enter-transition-duration: 1s;
+$card-enter-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+$card-enter-transition-delay: 0s;
+
+$card-enter-flip-transition-duration: 0.75s;
+$card-enter-flip-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+$card-enter-flip-transition-delay: 0.25s;
+
+$card-exit-transition-duration: 1s;
+$card-exit-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+$card-exit-transition-delay: 0s;
+
+$card-flip-transition-duration: 0.75s;
+$card-flip-transition-function: cubic-bezier(0.165,0.84,0.44,1);
+$card-flip-transition-delay: 0s;
+
+// dealer
+$dealer-min-height: 11.5em;
+$dealer-margin: 0;
+$dealer-transform: none; // consider scaling the dealer to match primary player
+
+// players
+$players-font: inherit;
+$players-color: inherit;
+$players-width: 100%;
+$players-min-height: 16em;
+$players-margin: 0;
+
+$player-width: 9.375em;
+$player-transform: translate3d(0,2.5em,0);
+$primary-player-transform: translate3d(0,-4em,0) scale3d(1.2,1.2,1.2);
+$player-transition: transform 200ms ease 0ms;
+
+$seat-width: $player-width;
+$seat-height: $seat-width;
+$seat-border: 0.4375em solid rgba(255,255,255,0.5);
+
+$player-info-width: 90%;
+$player-info-margin: 0 0 0.3125em;
+
+$player-name-font-size: 1em;
+$player-name-padding: 0.05em 0.3em;
+$player-name-margin: 0;
+
+$player-info-item-font-size: 0.8em;
+$player-info-item-padding: 0 0.1953125em;
+$player-info-item-margin: 0;
+
+$player-chips-background: rgba(255,0,0,0.5);
+$player-bet-background: rgba(0,255,0,0.5);
+$player-hand-total-background: rgba(0,0,255,0.5);
+$player-active-background: linear-gradient(to top, rgba(218,165,32,0.5), rgba(218,165,32,0));
+
+$player-enter-transform: translate3d(0,3.125em,0) rotate3d(0,0,1,180deg) scale3d(0,0,0);
+$player-enter-active-transform: translate3d(0,0,0) rotate3d(0,0,1,0deg) scale3d(1,1,1);
+$player-enter-transition: transform 200ms cubic-bezier(0.16,0.84,0.32,1.24) 300ms;
+
+$player-exit-opacity: 1;
+$player-exit-active-opacity: 0;
+$player-exit-transition: opacity 200ms ease 0ms;
+
+// banner
+$banner-font: 300 1em/1.2 'Dosis', sans-serif;
+$banner-color: inherit;
+$banner-color-player: lightblue;
+$banner-color-dealer: goldenrod;
+$banner-width: 100%;
+$banner-min-height: 10em;
+$banner-margin: 0;
+
+$banner-item-letter-spacing: 0.1em;
+$banner-item-margin: 0 1.5625em;
+$banner-item-value-font-size: 1.1em;
+$banner-item-value-font-weight: 600;
+$banner-item-value-letter-spacing: 0.15em;
+
+$banner-divider-height: 1.5em;
+$banner-divider-margin: 0;
+$banner-divider-background: url('../images/divider.png') center/contain no-repeat;
+
+// controls
+$controls-font: inherit;
+$controls-min-height: 8em;
+$controls-margin: 0;
+$controls-text-margin: 0 0 0.75em;
+$controls-input-font-size: 1.25em;
+$controls-input-margin: 0.25em;
+$controls-dollar-sign-font-size: $controls-input-font-size;
+$controls-dollar-sign-margin: 0;
+$controls-name-container-height: 4.6875em;
+$controls-name-input-width: 12em;
+$controls-buy-in-input-width: 5em;
+$controls-bet-input-width: 5em;
+
+$controls-enter-opacity: 0;
+$controls-enter-active-opacity: 1;
+$controls-enter-transform: translate3d(0,-6em,0);
+$controls-enter-active-transform: translate3d(0,0,0);
+$controls-enter-transition: opacity 200ms ease-out 0ms, transform 200ms ease-out 0ms;
+
+$controls-exit-opacity: 1;
+$controls-exit-active-opacity: 0;
+$controls-exit-transform: translate3d(0,0,0);
+$controls-exit-active-transform: translate3d(0,-6em,0);
+$controls-exit-transition: opacity 200ms ease-in 0ms, transform 200ms ease-in 0ms;

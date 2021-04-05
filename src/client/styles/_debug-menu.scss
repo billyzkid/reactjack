@@ -1,0 +1,13 @@
+.debug-menu {
+  display: flex;
+  flex-direction: column;
+  padding: $debug-menu-padding;
+  background: $debug-menu-background;
+  overflow: auto;
+  z-index: 400; // above everything else
+
+  > button {
+    font-size: $debug-menu-button-font-size;
+    margin: $debug-menu-button-margin;
+  }
+}

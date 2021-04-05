@@ -1,0 +1,90 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  font: $banner-font;
+  color: $banner-color;
+  width: $banner-width;
+  min-height: $banner-min-height;
+  margin: $banner-margin;
+  opacity: 0;
+  @include fade-transition(200ms, 200ms);
+
+  > div {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 33.333333%;
+
+      &:nth-child(1),
+      &:nth-child(3) {
+        justify-content: space-between;
+      }
+    }
+  }
+
+  > hr {
+    height: $banner-divider-height;
+    border: 0;
+    margin: $banner-divider-margin;
+    background: $banner-divider-background;
+  }
+
+  .player-chips,
+  .player-bet,
+  .player-hand-total,
+  .dealer-hand-total,
+  .message {
+    letter-spacing: $banner-item-letter-spacing;
+    margin: $banner-item-margin;
+    width: 100%;
+    opacity: 0;
+    @include fade-transition(1000ms, 1000ms);
+
+    p {
+      margin: 0;
+
+      &:nth-child(2) {
+        font-size: $banner-item-value-font-size;
+        font-weight: $banner-item-value-font-weight;
+        letter-spacing: $banner-item-value-letter-spacing;
+      }
+
+      > span {
+        display: block;
+      }
+    }
+  }
+
+  .player-chips,
+  .player-hand-total {
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .player-bet,
+  .dealer-hand-total {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .message {
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .player-hand-total {
+    color: $banner-color-player;
+  }
+
+  .dealer-hand-total {
+    color: $banner-color-dealer;
+  }
+}

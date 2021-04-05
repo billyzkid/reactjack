@@ -1,2 +1,19 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css';
+@import 'https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Dosis:wght@200;300;600&family=Monsieur+La+Doulaise&family=Montserrat:wght@300;400;600&display=swap';
+
 @import './variables';
+@import './mixins';
+@import './base';
+@import './buttons';
 @import './app';
+@import './table';
+@import './dealer';
+@import './banner';
+@import './controls';
+@import './players';
+@import './hand';
+@import './card';
+@import './main-menu';
+@import './debug-menu';
+@import './popups';

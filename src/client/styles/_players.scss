@@ -1,0 +1,210 @@
+.players {
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-auto-flow: column;
+  justify-items: center;
+  font: $players-font;
+  color: $players-color;
+  width: $players-width;
+  min-height: $players-min-height;
+  margin: $players-margin;
+  opacity: 0;
+  @include fade-transition(200ms, 200ms);
+}
+
+.player {
+  position: relative; // so we can absolutely position the seat
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: $player-width;
+  transform: $player-transform;
+  transition: $player-transition;
+
+  &.primary {
+    z-index: 100; // above other players
+    transform: $primary-player-transform;
+
+    &::before,
+    > .info {
+      display: none;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: $seat-width;
+    height: $seat-height;
+    border: $seat-border;
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  > .info {
+    position: relative;
+    width: $player-info-width;
+    margin: $player-info-margin;
+    text-align: center;
+    white-space: nowrap;
+
+    > .player-name {
+      font-size: $player-name-font-size;
+      padding: $player-name-padding;
+      margin: $player-name-margin;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+
+      > p {
+        flex: 1 0 33.333333%;
+        font-size: $player-info-item-font-size;
+        width: 33.333333%;
+        padding: $player-info-item-padding;
+        margin: $player-info-item-margin;
+        box-sizing: border-box;
+
+        &.player-chips {
+          background: $player-chips-background;
+        }
+
+        &.player-bet {
+          background: $player-bet-background;
+        }
+
+        &.player-hand-total {
+          background: $player-hand-total-background;
+        }
+
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.active > .info > .player-name {
+    background: $player-active-background;
+  }
+
+  &.position-1 {
+    grid-column: 1;
+  }
+
+  &.position-2 {
+    grid-column: 2;
+  }
+
+  &.position-3 {
+    grid-column: 3;
+  }
+
+  &.position-4 {
+    grid-column: 4;
+  }
+
+  &.position-5 {
+    grid-column: 5;
+  }
+
+  &.enter {
+    transform: $player-enter-transform;
+
+    &.enter-active {
+      transform: $player-enter-active-transform;
+      transition: $player-enter-transition;
+    }
+  }
+
+  &.exit {
+    opacity: $player-exit-opacity;
+
+    &.exit-active {
+      opacity: $player-exit-active-opacity;
+      transition: $player-exit-transition;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+
+    &.position-1 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translate3d(-3.5em,-8em,0) rotate3d(0,0,1,45deg);
+    }
+
+    &.position-2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translate3d(-3.5em,3em,0) rotate3d(0,0,1,45deg);
+    }
+
+    &.position-4 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate3d(3.5em,3em,0) rotate3d(0,0,-1,45deg);
+    }
+
+    &.position-5 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate3d(3.5em,-8em,0) rotate3d(0,0,-1,45deg);
+    }
+
+    &.position-3:not(.primary) {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate3d(-50%,3em,0);
+    }
+
+    &.position-1 > .info,
+    &.position-2 > .info {
+      transform: rotate3d(0,0,-1,45deg);
+    }
+
+    &.position-4 > .info,
+    &.position-5 > .info {
+      transform: rotate3d(0,0,1,45deg);
+    }
+
+    &.position-1 > .info > .player-name,
+    &.position-2 > .info > .player-name {
+      text-align: left;
+    }
+
+    &.position-4 > .info > .player-name,
+    &.position-5 > .info > .player-name {
+      text-align: right;
+    }
+
+    &.active.position-1 > .info > .player-name,
+    &.active.position-2 > .info > .player-name {
+      background-image: linear-gradient(to right, rgba(218,165,32,0.5), rgba(218,165,32,0));
+    }
+
+    &.active.position-4 > .info > .player-name,
+    &.active.position-5 > .info > .player-name {
+      background-image: linear-gradient(to left, rgba(218,165,32,0.5), rgba(218,165,32,0));
+    }
+
+    &.position-1 > .info > div,
+    &.position-2 > .info > div,
+    &.position-4 > .info > div,
+    &.position-5 > .info > div {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+
