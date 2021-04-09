@@ -27,6 +27,9 @@ export const CARD_RANKS = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven'
 export const HAND_DISTANCE_X = 5;
 export const HAND_DISTANCE_Y = 1.25;
 
+export const MAIN_MENU_ENTER_TIMEOUT = 2000;
+export const MAIN_MENU_EXIT_TIMEOUT = 2000;
+
 export const POPUP_ENTER_TIMEOUT = 300;
 export const POPUP_EXIT_TIMEOUT = 300;
 
