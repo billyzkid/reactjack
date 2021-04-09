@@ -9,7 +9,7 @@ import * as constants from '../constants.js';
 const initialState = {
   isDealerVisible: false,
   isBannerVisible: false,
-  isControlsVisible: true,
+  isControlsVisible: false,
   isPlayersVisible: false,
   isDebugMenuVisible: true,
   isMainMenuVisible: false,
@@ -19,7 +19,7 @@ const initialState = {
   isMusicPopupOpen: false,
   isSettingsPopupOpen: false,
   isQuitPopupOpen: false,
-  isNameControlVisible: true,
+  isNameControlVisible: false,
   isSitControlVisible: false,
   isInOutControlVisible: false,
   isBuyInControlVisible: false,
@@ -313,6 +313,16 @@ const ContextProvider = (props) => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   useEffect(() => {
+
+    // "connected" is server's response to a new socket connection
+    // prompting the user for a name
+    socket.on('connected', (data) => {
+      logger.debug('socket on connected', data);
+
+      dispatch({ type: 'toggleControls', isVisible: true });
+      dispatch({ type: 'toggleNameControl', isVisible: true });
+    });
+
     // "welcome" is server's response to "new user"
     // providing initial data for the new user when they join
     socket.on('welcome', (data) => {
@@ -323,7 +333,6 @@ const ContextProvider = (props) => {
       dispatch({ type: 'setInitialState', user, dealer, players, chatMessages });
       dispatch({ type: 'toggleDealer', isVisible: true });
       dispatch({ type: 'toggleBanner', isVisible: true });
-      dispatch({ type: 'toggleControls', isVisible: true });
       dispatch({ type: 'togglePlayers', isVisible: true });
       dispatch({ type: 'toggleMainMenu', isVisible: true });
       dispatch({ type: 'toggleNameControl', isVisible: false });

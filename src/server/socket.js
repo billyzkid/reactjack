@@ -56,6 +56,9 @@ function createServer(httpServer, options) {
   server.on('connect', (socket) => {
     console.log('socket on connect', socket.id);
 
+    socket.emit('connected');
+    console.log('socket emit connected');
+
     // executed when a new user joins
     socket.on('new user', (data) => {
       console.log('socket on new user', data);
