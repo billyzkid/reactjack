@@ -24,7 +24,7 @@ const Players = (props) => {
   const positions = getPlayerPositions(players);
 
   return (
-    <CSSTransition in={isPlayersVisible} nodeRef={playersNodeRef} timeout={playersTimeouts}>
+    <CSSTransition in={isPlayersVisible} nodeRef={playersNodeRef} timeout={playersTimeouts} mountOnEnter unmountOnExit>
       <div ref={playersNodeRef} className="players">
         <TransitionGroup component={null}>
           {players.map((player) => {

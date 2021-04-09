@@ -21,10 +21,12 @@
   }
 
   &.enter {
+    opacity: 0;
     transition: opacity $enter-duration ease 0ms;
   }
 
   &.exit {
+    opacity: 1;
     transition: opacity $exit-duration ease 0ms;
   }
 }

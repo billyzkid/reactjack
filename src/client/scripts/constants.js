@@ -30,23 +30,23 @@ export const HAND_DISTANCE_Y = 1.25;
 export const POPUP_ENTER_TIMEOUT = 300;
 export const POPUP_EXIT_TIMEOUT = 300;
 
-export const BANNER_ENTER_TIMEOUT = 200;
-export const BANNER_EXIT_TIMEOUT = 200;
+export const BANNER_ENTER_TIMEOUT = 2000;
+export const BANNER_EXIT_TIMEOUT = 2000;
 
 export const BANNER_ITEM_ENTER_TIMEOUT = 1000;
 export const BANNER_ITEM_EXIT_TIMEOUT = 1000;
 
-export const CONTROLS_ENTER_TIMEOUT = 200;
-export const CONTROLS_EXIT_TIMEOUT = 200;
+export const CONTROLS_ENTER_TIMEOUT = 2000;
+export const CONTROLS_EXIT_TIMEOUT = 2000;
 
 export const CONTROL_ENTER_TIMEOUT = 200;
 export const CONTROL_EXIT_TIMEOUT = 200;
 
-export const DEALER_ENTER_TIMEOUT = 200;
-export const DEALER_EXIT_TIMEOUT = 200;
+export const DEALER_ENTER_TIMEOUT = 2000;
+export const DEALER_EXIT_TIMEOUT = 2000;
 
-export const PLAYERS_ENTER_TIMEOUT = 200;
-export const PLAYERS_EXIT_TIMEOUT = 200;
+export const PLAYERS_ENTER_TIMEOUT = 2000;
+export const PLAYERS_EXIT_TIMEOUT = 2000;
 
 export const PLAYER_ENTER_TIMEOUT = 500;
 export const PLAYER_EXIT_TIMEOUT = 200;

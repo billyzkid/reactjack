@@ -9,8 +9,7 @@
   width: 100%;
   min-height: $controls-min-height;
   margin: $controls-margin;
-  opacity: 1;
-  @include fade-transition(200ms, 200ms);
+  @include fade-transition(2000ms, 2000ms);
 
   > div {
     position: absolute;

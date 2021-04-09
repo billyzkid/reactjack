@@ -24,7 +24,7 @@ const Banner = (props) => {
   const primaryPlayer = players.find((player) => player.primary);
 
   return (
-    <CSSTransition in={isBannerVisible} nodeRef={bannerNodeRef} timeout={bannerTimeouts}>
+    <CSSTransition in={isBannerVisible} nodeRef={bannerNodeRef} timeout={bannerTimeouts} mountOnEnter unmountOnExit>
       <div ref={bannerNodeRef} className="banner">
         <hr />
         <div>

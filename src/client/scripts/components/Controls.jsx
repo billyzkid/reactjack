@@ -22,7 +22,7 @@ const Controls = (props) => {
   const controlsNodeRef = useRef(null);
 
   return (
-    <CSSTransition in={isControlsVisible} nodeRef={controlsNodeRef} timeout={controlsTimeouts}>
+    <CSSTransition in={isControlsVisible} nodeRef={controlsNodeRef} timeout={controlsTimeouts} mountOnEnter unmountOnExit>
       <div ref={controlsNodeRef} className="controls">
         <NameControl />
         <SitControl />

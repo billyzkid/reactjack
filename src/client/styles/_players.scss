@@ -8,8 +8,7 @@
   width: $players-width;
   min-height: $players-min-height;
   margin: $players-margin;
-  opacity: 0;
-  @include fade-transition(200ms, 200ms);
+  @include fade-transition(2000ms, 2000ms);
 }
 
 .player {

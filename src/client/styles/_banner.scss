@@ -6,8 +6,7 @@
   width: $banner-width;
   min-height: $banner-min-height;
   margin: $banner-margin;
-  opacity: 0;
-  @include fade-transition(200ms, 200ms);
+  @include fade-transition(2000ms, 2000ms);
 
   > div {
     display: flex;

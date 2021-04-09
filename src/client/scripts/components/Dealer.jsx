@@ -17,7 +17,7 @@ const Dealer = (props) => {
   const dealerNodeRef = useRef(null);
 
   return (
-    <CSSTransition in={isDealerVisible} nodeRef={dealerNodeRef} timeout={timeouts}>
+    <CSSTransition in={isDealerVisible} nodeRef={dealerNodeRef} timeout={timeouts} mountOnEnter unmountOnExit>
       <div ref={dealerNodeRef} className="dealer">
         <Hand hand={dealer.hand} />
       </div>
