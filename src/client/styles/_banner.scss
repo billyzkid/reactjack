@@ -44,7 +44,6 @@
     letter-spacing: $banner-item-letter-spacing;
     margin: $banner-item-margin;
     width: 100%;
-    opacity: 0;
     @include fade-transition(1000ms, 1000ms);
 
     p {
