@@ -74,11 +74,12 @@ const SitControl = (props) => {
   logger.debug('SitControl render', props);
 
   const { isSitControlVisible } = useStateContext();
+  const dispatch = useDispatchContext();
   const sitContainerRef = useRef(null);
   const sitButtonRef = useRef(null);
 
   const onEnter = useCallback(() => sitButtonRef.current.focus(), []);
-  const onSitButtonClick = useCallback(() => logger.debug('sit'), []);
+  const onSitButtonClick = useCallback(() => dispatch({ type: 'sit' }), []);
 
   return (
     <CSSTransition nodeRef={sitContainerRef} in={isSitControlVisible} timeout={controlTimeouts} onEnter={onEnter} mountOnEnter unmountOnExit>
@@ -148,13 +149,14 @@ const BetControl = (props) => {
   const betInputRef = useRef(null);
 
   const onEnter = useCallback(() => betInputRef.current.select(), []);
+  const onBetButtonClick = useCallback(() => dispatch({ type: 'setBet', bet }), [bet]);
   const onBetInputChange = useCallback((event) => setBet(event.currentTarget.value), []);
-  const onBetButtonClick = useCallback(() => dispatch({ type: 'bet', bet }), [bet]);
+  const onBetInputKeyDown = useCallback((event) => handleEnterKeyDown(event, onBetButtonClick), [onBetButtonClick]);
 
   return (
     <CSSTransition nodeRef={betContainerRef} in={isBetControlVisible} timeout={controlTimeouts} onEnter={onEnter} mountOnEnter unmountOnExit>
       <div ref={betContainerRef} className="bet-container">
-        <input ref={betInputRef} type="number" min={minBet} max={maxBet} placeholder="Amount" value={bet} onChange={onBetInputChange} />
+        <input ref={betInputRef} type="number" min={minBet} max={maxBet} placeholder="Amount" value={bet} onChange={onBetInputChange} onKeyDown={onBetInputKeyDown} />
         <button className="silver" onClick={onBetButtonClick}>Bet</button>
       </div>
     </CSSTransition>

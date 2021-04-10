@@ -251,12 +251,40 @@ const reducer = (draft, action) => {
       return;
     }
 
+    case 'setPlayers': {
+      draft.players = action.players;
+
+      return;
+    }
+
+
+    case 'setPlayer': {
+      const index = draft.players.findIndex((player) => player.id === action.player.id);
+      draft.players.splice(index, 1, action.player);
+
+      return;
+    }
+
     case 'setName': {
       draft.user.name = action.name;
-      localStorage.setItem(constants.USER_NAME_KEY, draft.user.name);
+      localStorage.setItem(constants.USER_NAME_KEY, action.name);
 
       logger.info('socket emit new user', draft.user);
       socket.emit('new user', { user: draft.user });
+
+      return;
+    }
+
+    case 'setBet': {
+      draft.user.bet = action.bet;
+      localStorage.setItem(constants.USER_BET_KEY, action.bet);
+
+      logger.info('socket emit place bet', action.bet);
+      socket.emit('place bet', { bet: action.bet });
+
+      if (draft.settings.soundEffects) {
+        playChipsStackSound();
+      }
 
       return;
     }
@@ -271,14 +299,11 @@ const reducer = (draft, action) => {
       return;
     }
 
-    case 'bet': {
-      const primaryPlayer = draft.players.find((player) => player.primary);
-      const hand = { active: false, bet: action.bet, cards: [] };
-      primaryPlayer.hands.push(hand);
+    case 'sit': {
+      draft.isSitControlVisible = false;
 
-      if (draft.settings.soundEffects) {
-        playChipsStackSound();
-      }
+      logger.info('socket emit deal me in');
+      socket.emit('deal me in');
 
       return;
     }
@@ -337,6 +362,37 @@ const ContextProvider = (props) => {
       dispatch({ type: 'toggleMainMenu', isVisible: true });
       dispatch({ type: 'toggleNameControl', isVisible: false });
       dispatch({ type: 'showMessage', message: greetingMessage });
+    });
+
+    socket.on('sit invite', (data) => {
+      logger.debug('socket on sit invite', data);
+
+      dispatch({ type: 'toggleSitControl', isVisible: true });
+    });
+
+    socket.on('new player', (data) => {
+      logger.debug('socket on new player', data);
+
+      const { players } = data;
+
+      const player = players.find((player) => player.id === socket.id);
+      player.primary = true;
+
+      dispatch({ type: 'setPlayers', players });
+      dispatch({ type: 'toggleBetControl', isVisible: true });
+    });
+
+    socket.on('player bet', (data) => {
+      logger.debug('socket on player bet', data);
+
+      const { player } = data;
+
+      if (player.id === socket.id) {
+        player.primary = true;
+      }
+
+      dispatch({ type: 'setPlayer', player });
+      dispatch({ type: 'toggleBetControl', isVisible: false });
     });
 
     // "chat message" is received when a chat message is sent by the system or user

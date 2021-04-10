@@ -188,7 +188,7 @@ test('getHandTotal is calculated correctly for 0 cards', () => {
   const result = utils.getHandTotal(hand);
 
   assert.is(result.total, 0);
-  assert.is(result.displayTotal, '0');
+  assert.is(result.displayTotal, '');
 });
 
 test('getHandTotal is calculated correctly for 1 card', () => {

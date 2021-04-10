@@ -82,7 +82,7 @@ function getHandTotal(hand) {
   } else if (total > 0) {
     displayTotal = `${total}`;
   } else {
-    displayTotal = '0';
+    displayTotal = '';
   }
 
   return { total, displayTotal };

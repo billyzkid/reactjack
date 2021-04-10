@@ -7,51 +7,70 @@ const MAX_CHAT_MESSAGES = 100;
 const MAX_PLAYERS = 5;
 const CHAT_COMMAND_KEY_REGEXP = /^\/(.+)/;
 
+const cardSuits = [ 'spades', 'hearts', 'clubs', 'diamonds' ];
+const cardRanks = [ 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king' ];
+const cardValues = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 ];
+const shoeSize = 6;
+const deck = createDeck();
+const shoe = createShoe();
+
+const users = [];
+const dealer = {
+  name: DEALER_NAME,
+  hand: {
+    cards: [
+      { rank: 'ace', suit: 'hearts' },
+      { rank: 'two', suit: 'spades' }
+    ]
+  }
+};
+const players = [];
+const chatMessages = [];
+const chatCommands = {
+  'list users': (socket, chatMessage) => socket.emit('list users', { users }),
+  'list players': (socket, chatMessage) => socket.emit('list players', { players })
+};
+
+let gameInProgress = false;
+let betCount = 0;
+
+shuffle(shoe);
+
+function createDeck() {
+  const deck = [];
+
+  cardSuits.forEach((suit, suitIndex) => {
+      cardRanks.forEach((rank, rankIndex) => {
+          const card = { suit, rank, value: cardValues[rankIndex] };
+          deck.push(card);
+      });
+  });
+
+  return deck;
+}
+
+function createShoe() {
+  const shoe = [];
+
+  for (let i = 0; i < shoeSize; i++) {
+      const deck = createDeck();
+      shoe.push(...deck);
+  }
+
+  return shoe;
+}
+
+function shuffle(array) {
+  // Fisher-Yates shuffle implementation:
+  // https://javascript.info/task/shuffle
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ array[i], array[j] ] = [ array[j], array[i] ];
+  }
+}
+
 function createServer(httpServer, options) {
   const server = new Server(httpServer, options);
-  const users = [];
-  const dealer = {
-    name: DEALER_NAME,
-    hand: {
-      cards: [
-        { rank: 'ace', suit: 'hearts' },
-        { rank: 'two', suit: 'spades' }
-      ]
-    }
-  };
-  const players = [{
-      id: '1',
-      name: 'Avery',
-      primary: false,
-      active: false,
-      chips: 1000,
-      hands: [{ active: false, bet: 10, cards: [{ rank: 'ace', suit: 'hearts' }, { rank: 'two', suit: 'spades' }] }
-    ]}, {
-      id: '2',
-      name: 'Billy',
-      primary: false,
-      active: true,
-      chips: 1000,
-      hands: [
-        { active: false, bet: 10, cards: [{ rank: 'ace', suit: 'hearts' }, { rank: 'two', suit: 'spades' }] },
-        { active: true, bet: 10, cards: [{ rank: 'ace', suit: 'hearts' }, { rank: 'two', suit: 'spades' }] }
-      ]
-    }, {
-      id: '3',
-      name: 'Charles',
-      primary: true,
-      active: false,
-      chips: 1000,
-      hands: [
-        { active: false, bet: 10, cards: [{ rank: 'ace', suit: 'hearts' }, { rank: 'two', suit: 'spades' }] }
-      ]
-    }
-  ];
-  const chatMessages = [];
-  const chatCommands = {
-    'list users': (socket, chatMessage) => socket.emit('list users', { users }),
-    'list players': (socket, chatMessage) => socket.emit('list players', { players })
-  };
 
   server.on('connect', (socket) => {
     console.log('socket on connect', socket.id);
@@ -79,7 +98,62 @@ function createServer(httpServer, options) {
       socket.emit('welcome', { user, dealer, players, chatMessages, greetingMessage });
       console.log('socket emit welcome');
 
+      if (isSeatAvailable && !gameInProgress) {
+        socket.emit('sit invite');
+      }
+
       addSystemChatMessage(`${user.name} has joined`);
+    });
+
+    // rename "new player"?
+    socket.on('deal me in', (data) => {
+      console.log('socket on deal me in', data);
+
+      const user = users.find((user) => user.id === socket.id);
+
+      const newPlayer = {
+        id: user.id,
+        name: user.name,
+        primary: false,
+        active: false,
+        chips: user.bankroll,
+        hands: []
+      };
+
+      players.push(newPlayer);
+
+      server.sockets.emit('new player', { players });
+
+      // if (players.length >= MAX_PLAYERS) {
+      //   socketServer.sockets.emit('sit uninvite');
+      // }
+    });
+
+    socket.on('place bet', (data) => {
+      console.log('socket on place bet', data);
+
+      const { bet } = data;
+      const player = players.find((player) => player.id === socket.id);
+
+      if (player) {
+        const hand = { active: false, bet, cards: [] };
+        player.hands.push(hand);
+        player.chips -= bet;
+
+        betCount++;
+
+        console.log(`${player.name} bet ${bet}`);
+        console.log(`${betCount} out of ${players.length} have bet so far`);
+
+        server.sockets.emit('player bet', { player });
+        console.log('sockets emit player bet');
+
+        // if (betCount === players.length) {
+        //   setTimeout(startGame, 1000);
+        // }
+      } else {
+        console.error(`Expected to find player ${socket.id}`);
+      }
     });
 
     // executed when the user changes their name
