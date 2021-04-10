@@ -18,10 +18,7 @@ const users = [];
 const dealer = {
   name: DEALER_NAME,
   hand: {
-    cards: [
-      { rank: 'ace', suit: 'hearts' },
-      { rank: 'two', suit: 'spades' }
-    ]
+    cards: []
   }
 };
 const players = [];
@@ -35,39 +32,6 @@ let gameInProgress = false;
 let betCount = 0;
 
 shuffle(shoe);
-
-function createDeck() {
-  const deck = [];
-
-  cardSuits.forEach((suit, suitIndex) => {
-      cardRanks.forEach((rank, rankIndex) => {
-          const card = { suit, rank, value: cardValues[rankIndex] };
-          deck.push(card);
-      });
-  });
-
-  return deck;
-}
-
-function createShoe() {
-  const shoe = [];
-
-  for (let i = 0; i < shoeSize; i++) {
-      const deck = createDeck();
-      shoe.push(...deck);
-  }
-
-  return shoe;
-}
-
-function shuffle(array) {
-  // Fisher-Yates shuffle implementation:
-  // https://javascript.info/task/shuffle
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [ array[i], array[j] ] = [ array[j], array[i] ];
-  }
-}
 
 function createServer(httpServer, options) {
   const server = new Server(httpServer, options);
@@ -123,10 +87,12 @@ function createServer(httpServer, options) {
       players.push(newPlayer);
 
       server.sockets.emit('new player', { players });
+      console.log('sockets emit new player', players);
 
-      // if (players.length >= MAX_PLAYERS) {
-      //   socketServer.sockets.emit('sit uninvite');
-      // }
+      if (players.length >= MAX_PLAYERS) {
+        server.sockets.emit('sit uninvite');
+        console.log('sockets emit sit uninvite');
+      }
     });
 
     socket.on('place bet', (data) => {
@@ -146,11 +112,11 @@ function createServer(httpServer, options) {
         console.log(`${betCount} out of ${players.length} have bet so far`);
 
         server.sockets.emit('player bet', { player });
-        console.log('sockets emit player bet');
+        console.log('sockets emit player bet', player);
 
-        // if (betCount === players.length) {
-        //   setTimeout(startGame, 1000);
-        // }
+        if (betCount === players.length) {
+          setTimeout(startGame, 1000);
+        }
       } else {
         console.error(`Expected to find player ${socket.id}`);
       }
@@ -232,6 +198,7 @@ function createServer(httpServer, options) {
       if (user) {
         removeUser(id);
         removePlayer(id);
+
         addSystemChatMessage(`${user.name} has left`);
       }
     }
@@ -251,9 +218,88 @@ function createServer(httpServer, options) {
         players.splice(playerIndex, 1);
       }
     }
+
+    function startGame() {
+      gameInProgress = true;
+      betCount = 0;
+
+      dealCards();
+
+      server.sockets.emit('sit uninvite');
+      console.log('sockets emit sit uninvite');
+    }
+
+    function dealCards() {
+
+      // deal two cards for each player
+      players.forEach((player) => {
+        const firstCard = deck.shift();
+        const secondCard = deck.shift();
+
+        player.hands[0].cards.push(firstCard);
+        console.log(`${player.name} receives ${firstCard.rank} of ${firstCard.suit}`);
+
+        player.hands[0].cards.push(secondCard);
+        console.log(`${player.name} receives ${secondCard.rank} of ${secondCard.suit}`);
+
+        //player.total = calculateHand(player.hand).total;
+        //player.displayTotal = calculateHand(player.hand).displayTotal;
+      });
+
+      // deal two cards for the dealer
+      const firstCard = deck.shift();
+      const secondCard = deck.shift();
+
+      dealer.hand.cards.push(firstCard);
+      console.log(`${dealer.name} receives ${firstCard.rank} of ${firstCard.suit}`)
+
+      dealer.hand.cards.push(secondCard);
+      console.log(`${dealer.name} receives ${secondCard.rank} of ${secondCard.suit}`)
+
+      //dealer.total = calculateHand(dealer.hand).total;
+      //dealer.displayTotal = calculateHand(dealer.hand).displayTotal;
+
+      console.log(`${deck.length} cards left in shoe`);
+
+      server.sockets.emit('deal cards', { dealer, players });
+      console.log('sockets emit deal cards', dealer, players);
+    }
   });
 
   return server;
+}
+
+function createDeck() {
+  const deck = [];
+
+  cardSuits.forEach((suit, suitIndex) => {
+      cardRanks.forEach((rank, rankIndex) => {
+          const card = { suit, rank, value: cardValues[rankIndex] };
+          deck.push(card);
+      });
+  });
+
+  return deck;
+}
+
+function createShoe() {
+  const shoe = [];
+
+  for (let i = 0; i < shoeSize; i++) {
+      const deck = createDeck();
+      shoe.push(...deck);
+  }
+
+  return shoe;
+}
+
+function shuffle(array) {
+  // Fisher-Yates shuffle implementation:
+  // https://javascript.info/task/shuffle
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ array[i], array[j] ] = [ array[j], array[i] ];
+  }
 }
 
 export { createServer };
