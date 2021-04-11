@@ -370,6 +370,12 @@ const ContextProvider = (props) => {
       dispatch({ type: 'toggleSitControl', isVisible: true });
     });
 
+    socket.on('sit uninvite', (data) => {
+      logger.debug('socket on sit uninvite', data);
+
+      dispatch({ type: 'toggleSitControl', isVisible: false });
+    });
+
     socket.on('new player', (data) => {
       logger.debug('socket on new player', data);
 
@@ -393,6 +399,23 @@ const ContextProvider = (props) => {
 
       dispatch({ type: 'setPlayer', player });
       dispatch({ type: 'toggleBetControl', isVisible: false });
+    });
+
+    socket.on('deal cards', (data) => {
+      logger.debug('socket on deal cards', data);
+
+      const { dealer, players } = data;
+
+      dealer.hand.cards.forEach((card) => {
+        dispatch({ type: 'dealCardToDealer', card });
+      });
+
+      players.forEach((player) => {
+        player.hands[0].cards.forEach((card) => {
+          dispatch({ type: 'dealCardToPlayer', playerId: player.id, handIndex: 0, card });
+        });
+      });
+
     });
 
     // "chat message" is received when a chat message is sent by the system or user

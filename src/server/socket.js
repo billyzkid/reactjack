@@ -250,6 +250,9 @@ function createServer(httpServer, options) {
       const firstCard = deck.shift();
       const secondCard = deck.shift();
 
+      // hole card
+      secondCard.hidden = true;
+
       dealer.hand.cards.push(firstCard);
       console.log(`${dealer.name} receives ${firstCard.rank} of ${firstCard.suit}`)
 
