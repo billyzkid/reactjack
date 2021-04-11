@@ -50,7 +50,7 @@ function createServer(httpServer, options) {
       const isSeatAvailable = players.length < MAX_PLAYERS;
       const greetingMessage = [`Welcome, ${user.name}!`];
 
-      if (isSeatAvailable) {
+      if (isSeatAvailable && !gameInProgress) {
         greetingMessage.push('Please have a seat.');
       } else {
         greetingMessage.push('Please wait for a seat...');
@@ -230,20 +230,22 @@ function createServer(httpServer, options) {
     }
 
     function dealCards() {
-
       // deal two cards for each player
       players.forEach((player) => {
+        const firstHand = player.hands[0];
         const firstCard = deck.shift();
         const secondCard = deck.shift();
 
-        player.hands[0].cards.push(firstCard);
+        firstHand.cards.push(firstCard);
         console.log(`${player.name} receives ${firstCard.rank} of ${firstCard.suit}`);
 
-        player.hands[0].cards.push(secondCard);
+        firstHand.cards.push(secondCard);
         console.log(`${player.name} receives ${secondCard.rank} of ${secondCard.suit}`);
 
-        //player.total = calculateHand(player.hand).total;
-        //player.displayTotal = calculateHand(player.hand).displayTotal;
+        const { total, displayTotal } = calculateHand(firstHand);
+
+        firstHand.total = total;
+        firstHand.displayTotal = displayTotal;
       });
 
       // deal two cards for the dealer
@@ -259,8 +261,10 @@ function createServer(httpServer, options) {
       dealer.hand.cards.push(secondCard);
       console.log(`${dealer.name} receives ${secondCard.rank} of ${secondCard.suit}`)
 
-      //dealer.total = calculateHand(dealer.hand).total;
-      //dealer.displayTotal = calculateHand(dealer.hand).displayTotal;
+      const { total, displayTotal } = calculateHand(dealer.hand);
+
+      dealer.hand.total = total;
+      dealer.hand.displayTotal = displayTotal;
 
       console.log(`${deck.length} cards left in shoe`);
 
@@ -303,6 +307,27 @@ function shuffle(array) {
       const j = Math.floor(Math.random() * (i + 1));
       [ array[i], array[j] ] = [ array[j], array[i] ];
   }
+}
+
+function calculateHand(hand) {
+  let total = hand.cards.reduce((total, card) => total + card.value, 0);
+  let displayTotal;
+
+  // if the hand is soft
+  if (hasAce(hand) && total + 10 <= 21) {
+    displayTotal = `${total} or ${total + 10}`;
+    total += 10;
+  } else if (total > 0) {
+    displayTotal = `${total}`;
+  } else {
+    displayTotal = '';
+  }
+
+  return { total, displayTotal };
+}
+
+function hasAce(hand) {
+  return !!hand.cards.find((card) => card.rank === 'ace');
 }
 
 export { createServer };

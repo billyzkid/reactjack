@@ -2,7 +2,7 @@ import React, { Fragment, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { useStateContext } from '../hooks.js';
-import { formatMoney, getHandTotal } from '../utils.js';
+import { formatMoney } from '../utils.js';
 import { logger } from '../log.js';
 import * as constants from '../constants.js';
 
@@ -120,7 +120,7 @@ const PlayerHandTotal = (props) => {
               <p>{player.name}</p>
               <p>
                 {player.hands.map((hand, index) => (
-                  <span key={index}>{getHandTotal(hand).displayTotal}</span>
+                  <span key={index}>{hand.displayTotal}</span>
                 ))}
               </p>
             </div>
@@ -149,7 +149,7 @@ const DealerHandTotal = (props) => {
           {isVisible && (
             <div ref={containerNodeRef} className="dealer-hand-total">
               <p>{dealer.name}</p>
-              <p>{getHandTotal(dealer.hand).displayTotal}</p>
+              <p>{dealer.hand.displayTotal}</p>
             </div>
           )}
         </Fragment>

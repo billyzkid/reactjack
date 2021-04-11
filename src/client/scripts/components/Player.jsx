@@ -2,7 +2,7 @@ import React, { memo, forwardRef, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Hand from './Hand.jsx';
-import { getClassNames, getHandPositions, getHandTotal, formatMoney } from '../utils.js';
+import { getClassNames, getHandPositions, formatMoney } from '../utils.js';
 import { logger } from '../log.js';
 import * as constants from '../constants.js';
 
@@ -38,7 +38,7 @@ const Player = memo(forwardRef((props, ref) => {
           </p>
           <p className="player-hand-total">
             {hands.map((hand, index) => (
-              <span key={index}>{getHandTotal(hand).displayTotal}</span>
+              <span key={index}>{hand.displayTotal}</span>
             ))}
           </p>
         </div>

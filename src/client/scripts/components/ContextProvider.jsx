@@ -251,12 +251,17 @@ const reducer = (draft, action) => {
       return;
     }
 
+    case 'setDealer': {
+      draft.dealer = action.dealer;
+
+      return;
+    }
+
     case 'setPlayers': {
       draft.players = action.players;
 
       return;
     }
-
 
     case 'setPlayer': {
       const index = draft.players.findIndex((player) => player.id === action.player.id);
@@ -410,11 +415,18 @@ const ContextProvider = (props) => {
         dispatch({ type: 'dealCardToDealer', card });
       });
 
+      dispatch({ type: 'setDealer', dealer });
+
       players.forEach((player) => {
         player.hands[0].cards.forEach((card) => {
           dispatch({ type: 'dealCardToPlayer', playerId: player.id, handIndex: 0, card });
         });
       });
+
+      const player = players.find((player) => player.id === socket.id);
+      player.primary = true;
+
+      dispatch({ type: 'setPlayers', players });
 
     });
 
