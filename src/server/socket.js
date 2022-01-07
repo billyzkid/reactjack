@@ -11,16 +11,9 @@ const cardSuits = [ 'spades', 'hearts', 'clubs', 'diamonds' ];
 const cardRanks = [ 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king' ];
 const cardValues = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 ];
 const shoeSize = 6;
-const deck = createDeck();
-const shoe = createShoe();
 
 const users = [];
-const dealer = {
-  name: DEALER_NAME,
-  hand: {
-    cards: []
-  }
-};
+const dealer = { name: DEALER_NAME, hand: { cards: [] } };
 const players = [];
 const chatMessages = [];
 const chatCommands = {
@@ -30,6 +23,9 @@ const chatCommands = {
 
 let gameInProgress = false;
 let betCount = 0;
+let playersReadyCount = 0;
+let activePlayers = [];
+let shoe = createShoe();
 
 shuffle(shoe);
 
@@ -120,6 +116,16 @@ function createServer(httpServer, options) {
       } else {
         console.error(`Expected to find player ${socket.id}`);
       }
+    });
+
+    socket.on('player ready', () => {
+      console.log('socket on player ready', socket.id);
+
+      playersReadyCount++;
+
+      if (playersReadyCount === players.length) {
+        testForBlackjacks();
+      };
     });
 
     // executed when the user changes their name
@@ -229,12 +235,37 @@ function createServer(httpServer, options) {
       console.log('sockets emit sit uninvite');
     }
 
+    function endGame() {
+      // TODO
+    }
+
+    function resetGame() {
+      dealer.hand = {};
+
+      players.forEach((player) => {
+        player.active = false;
+        player.hands = [];
+      });
+
+      gameInProgress = false;
+      betCount = 0;
+      playersReadyCount = 0;
+      activePlayers = [];
+
+      if (shoe.length < 52) {
+        shoe = createShoe();
+        shuffle(shoe);
+      }
+
+      server.sockets.emit('sit invite');
+    }
+
     function dealCards() {
       // deal two cards for each player
       players.forEach((player) => {
         const firstHand = player.hands[0];
-        const firstCard = deck.shift();
-        const secondCard = deck.shift();
+        const firstCard = shoe.shift();
+        const secondCard = shoe.shift();
 
         firstHand.cards.push(firstCard);
         console.log(`${player.name} receives ${firstCard.rank} of ${firstCard.suit}`);
@@ -249,8 +280,8 @@ function createServer(httpServer, options) {
       });
 
       // deal two cards for the dealer
-      const firstCard = deck.shift();
-      const secondCard = deck.shift();
+      const firstCard = shoe.shift();
+      const secondCard = shoe.shift();
 
       // hole card
       secondCard.hidden = true;
@@ -266,10 +297,41 @@ function createServer(httpServer, options) {
       dealer.hand.total = total;
       dealer.hand.displayTotal = displayTotal;
 
-      console.log(`${deck.length} cards left in shoe`);
+      console.log(`${shoe.length} cards left in shoe`);
 
       server.sockets.emit('deal cards', { dealer, players });
       console.log('sockets emit deal cards', dealer, players);
+    }
+
+    function testForBlackjacks() {
+      // if dealer gets blackjack, game is over
+      if (dealer.hand.total === 21) {
+        console.log('dealer has blackjack');
+        endGame();
+        setTimeout(resetGame, 1000);
+      } else {
+        console.log('checking players for blackjack');
+        activePlayers = players.filter((player) => {
+          const firstHand = player.hands[0];
+          if (firstHand.total === 21) {
+            console.log(`${player.name} has blackjack!`);
+            player.chips += (firstHand.bet + (firstHand.bet * 1.5)); // TODO: get blackjack multiplier from settings
+
+            // let player know their turn is over
+            server.to(player.id).emit('turn over');
+            server.sockets.emit('player bet', { player });
+          }
+
+          return firstHand.total < 21;
+        });
+
+        if (activePlayers.length > 0) {
+          server.sockets.emit('whose turn', { player: activePlayers[0] });
+        } else {
+          endGame();
+          setTimeout(resetGame, 1000);
+        }
+      }
     }
   });
 

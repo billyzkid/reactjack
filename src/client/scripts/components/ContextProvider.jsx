@@ -409,6 +409,8 @@ const ContextProvider = (props) => {
     socket.on('deal cards', (data) => {
       logger.debug('socket on deal cards', data);
 
+      dispatch({ type: 'showMessage', message: ['Dealing \'em out'] });
+
       const { dealer, players } = data;
 
       dealer.hand.cards.forEach((card) => {
@@ -428,6 +430,7 @@ const ContextProvider = (props) => {
 
       dispatch({ type: 'setPlayers', players });
 
+      socket.emit('player ready');
     });
 
     // "chat message" is received when a chat message is sent by the system or user
